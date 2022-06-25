@@ -86,7 +86,7 @@ func (g *Grid) evolve() {
 //	Render the grid onto the screen
 func (g *Grid) render(char string) {
 
-	os.Stdout.Write([]byte("\u001b[2J")) //	Clear screen
+	os.Stdout.Write([]byte(ClearScreen))
 
 	str := ""
 	for c := 0; c < g.columns; c++ {
