@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"os"
 )
 
 //	====
@@ -12,17 +11,19 @@ import (
 
 //	The game of life grid
 type Grid struct {
-	rows    int
-	columns int
-	matrix  [][]int
+	rows      int
+	columns   int
+	matrix    [][]int
+	character string
 }
 
 //	Create a new grid
-func NewGrid(rows, columns int, randomize bool) *Grid {
+func NewGrid(character string, rows, columns int, randomize bool) *Grid {
 	grid := new(Grid) //	Instantiate a new Grid
 
 	grid.rows = rows
 	grid.columns = columns
+	grid.character = character
 	grid.matrix = make([][]int, columns) //	Create grid columns
 	for c := range grid.matrix {
 		grid.matrix[c] = make([]int, rows) //	Create grid rows
@@ -60,7 +61,7 @@ func (g *Grid) countNeighbours(xPos, yPos int) int {
 
 //	Evolve the grid according to the rules of the game of life
 func (g *Grid) evolve() {
-	nextGen := NewGrid(g.rows, g.columns, false) //	Initialize a grid to store the state of the next generation
+	nextGen := NewGrid(g.character, g.rows, g.columns, false) //	Initialize a grid to store the state of the next generation
 
 	for c := 0; c < g.columns; c++ {
 		for r := 0; r < g.rows; r++ {
@@ -83,21 +84,21 @@ func (g *Grid) evolve() {
 	g.matrix = nextGen.matrix
 }
 
-//	Render the grid onto the screen
-func (g *Grid) render(char string) {
-
-	os.Stdout.Write([]byte(ClearScreen))
-
+func (g *Grid) String() string {
 	str := ""
 	for c := 0; c < g.columns; c++ {
 		for r := 0; r < g.rows; r++ {
 			if g.matrix[c][r] == 1 {
-				str += fmt.Sprintf("\u001b[%d;%dH", r, c)
-				str += char
+				str += CursorMoveTo(r, c)
+				str += g.character
 			}
 		}
 	}
+	return str
+}
 
-	os.Stdout.Write([]byte(str)) //	Print the grid
-
+//	Render the grid onto the screen
+func (g *Grid) render() {
+	str := ClearScreen + fmt.Sprint(g)
+	fmt.Println(str)
 }

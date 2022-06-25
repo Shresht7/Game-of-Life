@@ -15,11 +15,11 @@ func main() {
 	//	Prepare seed for RNG
 	rand.Seed(time.Now().Unix())
 
-	grid := NewGrid(80, 120, true)
+	grid := NewGrid(ENTITY, 80, 120, true)
 
 	for {
 		grid.evolve()
-		grid.render(ENTITY)
+		grid.render()
 		time.Sleep((1000 / FPS) * time.Millisecond)
 	}
 }
