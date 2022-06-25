@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
-	"time"
 )
 
 //	====
@@ -21,8 +20,6 @@ type Grid struct {
 //	Create a new grid
 func NewGrid(rows, columns int, randomize bool) *Grid {
 	grid := new(Grid) //	Instantiate a new Grid
-
-	rand.Seed(time.Now().Unix()) //	Prepare seed for RNG
 
 	grid.rows = rows
 	grid.columns = columns

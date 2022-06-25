@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"time"
 )
 
@@ -11,6 +12,9 @@ const FPS = 60
 const ENTITY = "◆"
 
 func main() {
+	//	Prepare seed for RNG
+	rand.Seed(time.Now().Unix())
+
 	grid := NewGrid(80, 120, true)
 
 	for {
