@@ -1,3 +1,3 @@
 module github.com/Shresht7/Game-of-Life
 
-go 1.17
+go 1.18
