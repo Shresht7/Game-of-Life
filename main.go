@@ -11,11 +11,16 @@ const FPS = 60
 //	The character to represent a single living entity
 const ENTITY = "◆"
 
+const (
+	ROWS    = 36
+	COLUMNS = 120
+)
+
 func main() {
 	//	Prepare seed for RNG
 	rand.Seed(time.Now().Unix())
 
-	grid := NewGrid(ENTITY, 80, 120, true)
+	grid := NewGrid(ENTITY, ROWS, COLUMNS, true)
 
 	for {
 		grid.evolve()
